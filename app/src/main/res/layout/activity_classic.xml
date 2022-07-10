@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/pos1"
+        android:src="@drawable/img1"
+        android:tag="01"
+        app:layout_constraintBottom_toTopOf="@id/pos5"
+        app:layout_constraintEnd_toStartOf="@id/pos2"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        style="@style/field_style_classic"
+        />
+
+    <ImageView
+        android:id="@+id/pos2"
+        android:src="@drawable/img2"
+        android:tag="02"
+        app:layout_constraintBottom_toTopOf="@id/pos6"
+        app:layout_constraintEnd_toStartOf="@id/pos3"
+        app:layout_constraintStart_toEndOf="@id/pos1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        style="@style/field_style_classic" />
+
+    <ImageView
+        android:id="@+id/pos3"
+        android:src="@drawable/img3"
+        android:tag="03"
+        app:layout_constraintBottom_toTopOf="@id/pos7"
+        app:layout_constraintEnd_toStartOf="@id/pos4"
+        app:layout_constraintStart_toEndOf="@id/pos2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        style="@style/field_style_classic" />
+
+    <ImageView
+        android:id="@+id/pos4"
+        android:src="@drawable/img4"
+        android:tag="04"
+        app:layout_constraintBottom_toTopOf="@id/pos8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/pos3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        style="@style/field_style_classic" />
+
+    <ImageView
+        android:id="@+id/pos5"
+        android:src="@drawable/img5"
+        android:tag="05"
+        app:layout_constraintBottom_toTopOf="@id/pos9"
+        app:layout_constraintEnd_toStartOf="@id/pos6"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pos1"
+        style="@style/field_style_classic" />
+
+    <ImageView
+        android:id="@+id/pos6"
+        android:src="@drawable/img6"
+        android:tag="06"
+        app:layout_constraintBottom_toTopOf="@id/pos10"
+        app:layout_constraintEnd_toStartOf="@id/pos7"
+        app:layout_constraintStart_toEndOf="@id/pos5"
+        app:layout_constraintTop_toBottomOf="@id/pos2"
+        style="@style/field_style_classic" />
+
+    <ImageView
+        android:id="@+id/pos7"
+        android:src="@drawable/img7"
+        android:tag="07"
+        app:layout_constraintBottom_toTopOf="@id/pos11"
+        app:layout_constraintEnd_toStartOf="@id/pos8"
+        app:layout_constraintStart_toEndOf="@id/pos6"
+        app:layout_constraintTop_toBottomOf="@id/pos3"
+        style="@style/field_style_classic" />
+
+    <ImageView
+        android:id="@+id/pos8"
+        android:src="@drawable/img8"
+        android:tag="08"
+        app:layout_constraintBottom_toTopOf="@id/pos12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/pos7"
+        app:layout_constraintTop_toBottomOf="@id/pos4"
+        style="@style/field_style_classic" />
+
+    <ImageView
+        android:id="@+id/pos9"
+        android:src="@drawable/img9"
+        android:tag="09"
+        app:layout_constraintBottom_toTopOf="@id/pos13"
+        app:layout_constraintEnd_toStartOf="@id/pos10"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pos5"
+        style="@style/field_style_classic" />
+
+    <ImageView
+        android:id="@+id/pos10"
+        android:src="@drawable/img10"
+        android:tag="10"
+        app:layout_constraintBottom_toTopOf="@id/pos14"
+        app:layout_constraintEnd_toStartOf="@id/pos11"
+        app:layout_constraintStart_toEndOf="@id/pos9"
+        app:layout_constraintTop_toBottomOf="@id/pos6"
+        style="@style/field_style_classic" />
+
+    <ImageView
+        android:id="@+id/pos11"
+        android:src="@drawable/img11"
+        android:tag="11"
+        app:layout_constraintBottom_toTopOf="@id/pos15"
+        app:layout_constraintEnd_toStartOf="@id/pos12"
+        app:layout_constraintStart_toEndOf="@id/pos10"
+        app:layout_constraintTop_toBottomOf="@id/pos7"
+        style="@style/field_style_classic" />
+
+    <ImageView
+        android:id="@+id/pos12"
+        android:src="@drawable/img12"
+        android:tag="12"
+        app:layout_constraintBottom_toTopOf="@id/pos16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/pos11"
+        app:layout_constraintTop_toBottomOf="@id/pos8"
+        style="@style/field_style_classic" />
+
+    <ImageView
+        android:id="@+id/pos13"
+        android:src="@drawable/img13"
+        android:tag="13"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/pos14"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pos9"
+        style="@style/field_style_classic" />
+
+    <ImageView
+        android:id="@+id/pos14"
+        android:src="@drawable/img14"
+        android:tag="14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/pos15"
+        app:layout_constraintStart_toEndOf="@id/pos13"
+        app:layout_constraintTop_toBottomOf="@id/pos10"
+        style="@style/field_style_classic" />
+
+    <ImageView
+        android:id="@+id/pos15"
+        android:src="@drawable/img15"
+        android:tag="15"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/pos16"
+        app:layout_constraintStart_toEndOf="@id/pos14"
+        app:layout_constraintTop_toBottomOf="@id/pos11"
+        style="@style/field_style_classic" />
+
+    <ImageView
+        android:id="@+id/pos16"
+        android:src="@drawable/img16"
+        android:tag="16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/pos15"
+        app:layout_constraintTop_toBottomOf="@id/pos12"
+        style="@style/field_style_classic" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        style="@android:style/Widget.Holo.Light.ImageButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:onClick="clickReset"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.15"
+        app:srcCompat="@drawable/ic_outline_refresh_40" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

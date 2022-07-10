@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="field_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
+        <item name="layout_constraintHorizontal_bias">0.5</item>
+        <item name="layout_constraintWidth_percent">0.2</item>
+    </style>
+
+    <style name="field_style_classic">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
+        <item name="layout_constraintHorizontal_bias">0.5</item>
+        <item name="layout_constraintWidth_percent">0.2</item>
+        <item name="android:layout_margin">1dp</item>
+    </style>
+
+    <style name="field_style_level">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
+        <item name="layout_constraintHorizontal_bias">0.5</item>
+        <item name="layout_constraintWidth_percent">0.24</item>
+        <item name="android:layout_margin">2dp</item>
+    </style>
+</resources>

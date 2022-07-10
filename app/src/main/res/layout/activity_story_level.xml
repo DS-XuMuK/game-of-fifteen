@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/lvl1"
+        app:layout_constraintEnd_toStartOf="@id/lvl2"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/lvl1"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl2"
+        android:clickable="false"
+        app:layout_constraintEnd_toStartOf="@id/lvl3"
+        app:layout_constraintStart_toEndOf="@id/lvl1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/lvl2"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl3"
+        android:clickable="false"
+        app:layout_constraintEnd_toStartOf="@id/lvl4"
+        app:layout_constraintStart_toEndOf="@id/lvl2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/lvl3"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl4"
+        android:clickable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/lvl3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/lvl4"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl5"
+        android:clickable="false"
+        app:layout_constraintEnd_toStartOf="@id/lvl6"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lvl1"
+        app:srcCompat="@drawable/lvl5"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl6"
+        android:clickable="false"
+        app:layout_constraintEnd_toStartOf="@id/lvl7"
+        app:layout_constraintStart_toEndOf="@id/lvl5"
+        app:layout_constraintTop_toBottomOf="@id/lvl2"
+        app:srcCompat="@drawable/lvl6"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl7"
+        android:clickable="false"
+        app:layout_constraintEnd_toStartOf="@id/lvl8"
+        app:layout_constraintStart_toEndOf="@id/lvl6"
+        app:layout_constraintTop_toBottomOf="@id/lvl3"
+        app:srcCompat="@drawable/lvl7"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl8"
+        android:clickable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/lvl7"
+        app:layout_constraintTop_toBottomOf="@id/lvl4"
+        app:srcCompat="@drawable/lvl8"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl9"
+        android:clickable="false"
+        app:layout_constraintEnd_toStartOf="@id/lvl10"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lvl5"
+        app:srcCompat="@drawable/lvl9"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl10"
+        android:clickable="false"
+        app:layout_constraintEnd_toStartOf="@id/lvl11"
+        app:layout_constraintStart_toEndOf="@id/lvl9"
+        app:layout_constraintTop_toBottomOf="@id/lvl6"
+        app:srcCompat="@drawable/lvl10"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl11"
+        android:clickable="false"
+        app:layout_constraintEnd_toStartOf="@id/lvl12"
+        app:layout_constraintStart_toEndOf="@id/lvl10"
+        app:layout_constraintTop_toBottomOf="@id/lvl7"
+        app:srcCompat="@drawable/lvl11"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl12"
+        android:clickable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/lvl11"
+        app:layout_constraintTop_toBottomOf="@id/lvl8"
+        app:srcCompat="@drawable/lvl12"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl13"
+        android:clickable="false"
+        app:layout_constraintEnd_toStartOf="@id/lvl14"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lvl9"
+        app:srcCompat="@drawable/lvl13"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl14"
+        android:clickable="false"
+        app:layout_constraintEnd_toStartOf="@id/lvl15"
+        app:layout_constraintStart_toEndOf="@id/lvl13"
+        app:layout_constraintTop_toBottomOf="@id/lvl10"
+        app:srcCompat="@drawable/lvl14"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl15"
+        android:clickable="false"
+        app:layout_constraintEnd_toStartOf="@id/lvl16"
+        app:layout_constraintStart_toEndOf="@id/lvl14"
+        app:layout_constraintTop_toBottomOf="@id/lvl11"
+        app:srcCompat="@drawable/lvl15"
+        style="@style/field_style_level"/>
+
+    <ImageView
+        android:id="@+id/lvl16"
+        android:clickable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/lvl15"
+        app:layout_constraintTop_toBottomOf="@id/lvl12"
+        app:srcCompat="@drawable/lvl16"
+        style="@style/field_style_level"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
