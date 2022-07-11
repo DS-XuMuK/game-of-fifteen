@@ -55,8 +55,8 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
             currentLevel = 0;
         }
 
+        setTitle("Уровень " + currentLevel);
         loadImage();
-
         startNewGame();
     }
 
@@ -184,6 +184,40 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
         imageList.get(13).setImageBitmap(Bitmap.createBitmap(bitmap, side, side * 3, side, side));
         imageList.get(14).setImageBitmap(Bitmap.createBitmap(bitmap, side * 2, side * 3, side,
                 side));
+
+        int randomNum = (int) (Math.random() * 9 + 1);
+        switch (randomNum) {
+            case 1:
+                imageList.get(15).setImageResource(R.drawable.mem1);
+                break;
+            case 2:
+                imageList.get(15).setImageResource(R.drawable.mem2);
+                break;
+            case 3:
+                imageList.get(15).setImageResource(R.drawable.mem3);
+                break;
+            case 4:
+                imageList.get(15).setImageResource(R.drawable.mem4);
+                break;
+            case 5:
+                imageList.get(15).setImageResource(R.drawable.mem5);
+                break;
+            case 6:
+                imageList.get(15).setImageResource(R.drawable.mem6);
+                break;
+            case 7:
+                imageList.get(15).setImageResource(R.drawable.mem7);
+                break;
+            case 8:
+                imageList.get(15).setImageResource(R.drawable.mem8);
+                break;
+            case 9:
+                imageList.get(15).setImageResource(R.drawable.mem9);
+                break;
+            case 10:
+                imageList.get(15).setImageResource(R.drawable.mem10);
+                break;
+        }
 
         drawableList = new ArrayList<>();
         for (ImageView iv : imageList) {

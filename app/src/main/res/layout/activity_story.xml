@@ -149,7 +149,6 @@
 
     <ImageView
         android:id="@+id/pos16"
-        android:src="@drawable/img16"
         android:tag="16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
