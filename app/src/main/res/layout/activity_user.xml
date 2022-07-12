@@ -181,7 +181,7 @@
     <ImageView
         android:id="@+id/pos16"
         android:onClick="clickOnField"
-        android:src="@drawable/lvl16"
+        android:src="@drawable/img16"
         android:tag="16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -193,7 +193,8 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Load image"
+        android:layout_margin="10dp"
+        android:text="Загрузить"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

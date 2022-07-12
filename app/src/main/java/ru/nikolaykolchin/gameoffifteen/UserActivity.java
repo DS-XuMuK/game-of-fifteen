@@ -1,12 +1,10 @@
 package ru.nikolaykolchin.gameoffifteen;
 
-import android.content.ActivityNotFoundException;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,15 +12,18 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,75 +71,9 @@ public class UserActivity extends AppCompatActivity {
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
-                // TODO: заменить startActivityForResult на что-то актуальное
             }
         });
-
-        Toast.makeText(getApplicationContext(), "onCreate()", Toast.LENGTH_SHORT).show();
-        Log.i(TAG, "onCreate()");
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        Toast.makeText(getApplicationContext(), "onStart()", Toast.LENGTH_SHORT).show();
-        Log.i(TAG, "onStart()");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Toast.makeText(getApplicationContext(), "onResume()", Toast.LENGTH_SHORT).show();
-        Log.i(TAG, "onResume()");
-    }
-
-    @Override
-    protected void onPause() {
-//        StringBuilder savedField = new StringBuilder();
-//        for (Object obj : tagList) {
-//            savedField.append(obj.toString());
-//        }
-//        SharedPreferences.Editor editor = mSettings.edit();
-//        editor.putString(APP_PREFERENCES_FIELD, savedField.toString());
-//        editor.apply();
-//
-//        for (Object obj : tagList) {
-//            System.out.println(obj.toString());
-//        }
-//        System.out.println(savedField);
-
-        Toast.makeText(getApplicationContext(), "onPause()", Toast.LENGTH_SHORT).show();
-        Log.i(TAG, "onPause()");
-
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        Toast.makeText(getApplicationContext(), "onStop()", Toast.LENGTH_SHORT).show();
-        Log.i(TAG, "onStop()");
-
-        super.onStop();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-
-        Toast.makeText(getApplicationContext(), "onRestart()", Toast.LENGTH_SHORT).show();
-        Log.i(TAG, "onRestart()");
-    }
-
-    @Override
-    protected void onDestroy() {
-        Toast.makeText(getApplicationContext(), "onDestroy()", Toast.LENGTH_SHORT).show();
-        Log.i(TAG, "onDestroy()");
-
-        super.onDestroy();
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
@@ -156,7 +91,21 @@ public class UserActivity extends AppCompatActivity {
 
                 assert bitmap != null;
                 bitmap = cropBitmap(bitmap);
-                //TODO: добавить либо кадрирование (предпочтительнее), либо верную автообработку фото
+
+                Bitmap compressBitmap = bitmap;
+
+                try {
+                    String filename = "bitmap.jpg";
+                    FileOutputStream stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
+                    compressBitmap.compress(Bitmap.CompressFormat.JPEG, 10, stream);
+
+                    Intent intent = new Intent(this, EditorActivity.class);
+                    intent.putExtra("image", filename);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 int side = bitmap.getHeight() / 4;
                 imageList.get(0).setImageBitmap(Bitmap.createBitmap(bitmap, 0, 0, side, side));
                 imageList.get(1).setImageBitmap(Bitmap.createBitmap(bitmap, side, 0, side, side));
@@ -177,6 +126,7 @@ public class UserActivity extends AppCompatActivity {
                 drawableList.clear();
                 for (ImageView iv : imageList) {
                     drawableList.add(iv.getDrawable());
+                    iv.setClickable(true);
                 }
             }
         }
@@ -191,6 +141,10 @@ public class UserActivity extends AppCompatActivity {
     }
 
     protected void initLists() {
+
+//        String mDrawableName = "myimg";
+//        int resID = getResources().getIdentifier(mDrawableName , "drawable", getPackageName());
+
         imageList = new ArrayList<>();
         imageList.add(findViewById(R.id.pos1));
         imageList.add(findViewById(R.id.pos2));
@@ -212,13 +166,11 @@ public class UserActivity extends AppCompatActivity {
         emptySquare = imageList.get(15);
 
         tagList = new ArrayList<>();
-        for (ImageView iv : imageList) {
-            tagList.add(iv.getTag());
-        }
-
         drawableList = new ArrayList<>();
         for (ImageView iv : imageList) {
+            tagList.add(iv.getTag());
             drawableList.add(iv.getDrawable());
+            iv.setClickable(false);
         }
     }
 
@@ -366,11 +318,4 @@ public class UserActivity extends AppCompatActivity {
         System.out.println(randomField);
         shuffleSquares(randomField);
     }
-
-//    public void clickLoadImage(View view) {
-////        FragmentManager manager = getSupportFragmentManager();
-////        DialogClassicReset dialogClassicReset = new DialogClassicReset();
-////        dialogClassicReset.show(manager, "dialogClassicReset");
-////        dialogClassicReset.setCancelable(false);
-//    }
 }

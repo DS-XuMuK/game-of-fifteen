@@ -44,13 +44,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonUser(View view) {
-        Toast.makeText(getApplicationContext(), "Раздел в разработке :)", Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(this, UserActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, UserActivity.class);
+        startActivity(intent);
     }
 
     public void buttonAbout(View view) {
         Toast.makeText(getApplicationContext(), "Я красивый, правда )", Toast.LENGTH_SHORT).show();
     }
     //TODO кнопка выключения звука
+    //TODO звуки в стори моде
+    //TODO раздел "об авторах"
+    //TODO в юзер моде разрешение на доступ в галерею
+    //TODO вынос повторяющихся методов в отдельный класс
 }
