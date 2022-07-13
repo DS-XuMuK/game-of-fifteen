@@ -22,13 +22,6 @@ public class DialogUserWin extends AppCompatDialogFragment {
                         ((UserActivity) requireActivity()).startNewGame();
                     }
                 })
-                .setNeutralButton("Выбрать другое изображение", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                        //TODO: вызов метода выбора другого изображения
-                    }
-                })
                 .setNegativeButton("Выйти", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

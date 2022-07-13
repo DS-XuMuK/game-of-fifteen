@@ -34,7 +34,7 @@
         <activity android:name=".EditorActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dialog"
-            android:label="Ориентация изображения"
+            android:label="Ориентация"
             />
     </application>
 

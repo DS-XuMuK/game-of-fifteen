@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,7 +42,9 @@ public class UserActivity extends AppCompatActivity {
     SharedPreferences mSettings;
     static final int GALLERY_REQUEST = 1;
     public static Uri selectedImage;
-
+    public static Matrix imgMatrix;
+    Bitmap bitmap;
+    public static boolean isEdit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +52,8 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         initLists();
+        imgMatrix = new Matrix();
+        isEdit = false;
 
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         boolean hasVisitedUser = mSettings.getBoolean("hasVisitedUser", false);
@@ -64,6 +69,7 @@ public class UserActivity extends AppCompatActivity {
             editor.apply();
         }
 
+        Log.i(TAG, "onCreate()");
         Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,9 +82,83 @@ public class UserActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        Log.i(TAG, "onStart()");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.i(TAG, "onResume()");
+        if (isEdit) {
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(),
+                    imgMatrix, true);
+            imgMatrix.reset();
+
+            int side = bitmap.getHeight() / 4;
+            imageList.get(0).setImageBitmap(Bitmap.createBitmap(bitmap, 0, 0, side, side));
+            imageList.get(1).setImageBitmap(Bitmap.createBitmap(bitmap, side, 0, side, side));
+            imageList.get(2).setImageBitmap(Bitmap.createBitmap(bitmap, side * 2, 0, side, side));
+            imageList.get(3).setImageBitmap(Bitmap.createBitmap(bitmap, side * 3, 0, side, side));
+            imageList.get(4).setImageBitmap(Bitmap.createBitmap(bitmap, 0, side, side, side));
+            imageList.get(5).setImageBitmap(Bitmap.createBitmap(bitmap, side, side, side, side));
+            imageList.get(6).setImageBitmap(Bitmap.createBitmap(bitmap, side * 2, side, side, side));
+            imageList.get(7).setImageBitmap(Bitmap.createBitmap(bitmap, side * 3, side, side, side));
+            imageList.get(8).setImageBitmap(Bitmap.createBitmap(bitmap, 0, side * 2, side, side));
+            imageList.get(9).setImageBitmap(Bitmap.createBitmap(bitmap, side, side * 2, side, side));
+            imageList.get(10).setImageBitmap(Bitmap.createBitmap(bitmap, side * 2, side * 2, side, side));
+            imageList.get(11).setImageBitmap(Bitmap.createBitmap(bitmap, side * 3, side * 2, side, side));
+            imageList.get(12).setImageBitmap(Bitmap.createBitmap(bitmap, 0, side * 3, side, side));
+            imageList.get(13).setImageBitmap(Bitmap.createBitmap(bitmap, side, side * 3, side, side));
+            imageList.get(14).setImageBitmap(Bitmap.createBitmap(bitmap, side * 2, side * 3, side, side));
+
+            drawableList.clear();
+            for (ImageView iv : imageList) {
+                drawableList.add(iv.getDrawable());
+                iv.setClickable(true);
+            }
+            isEdit = false;
+            // TODO random here
+
+            startNewGame();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        Log.i(TAG, "onPause()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Log.i(TAG, "onStop()");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        Log.i(TAG, "onRestart()");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Log.i(TAG, "onDestroy()");
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        Bitmap bitmap = null;
+        bitmap = null;
 
         if (requestCode == GALLERY_REQUEST) {
             if (resultCode == RESULT_OK) {
@@ -105,29 +185,32 @@ public class UserActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                int side = bitmap.getHeight() / 4;
-                imageList.get(0).setImageBitmap(Bitmap.createBitmap(bitmap, 0, 0, side, side));
-                imageList.get(1).setImageBitmap(Bitmap.createBitmap(bitmap, side, 0, side, side));
-                imageList.get(2).setImageBitmap(Bitmap.createBitmap(bitmap, side * 2, 0, side, side));
-                imageList.get(3).setImageBitmap(Bitmap.createBitmap(bitmap, side * 3, 0, side, side));
-                imageList.get(4).setImageBitmap(Bitmap.createBitmap(bitmap, 0, side, side, side));
-                imageList.get(5).setImageBitmap(Bitmap.createBitmap(bitmap, side, side, side, side));
-                imageList.get(6).setImageBitmap(Bitmap.createBitmap(bitmap, side * 2, side, side, side));
-                imageList.get(7).setImageBitmap(Bitmap.createBitmap(bitmap, side * 3, side, side, side));
-                imageList.get(8).setImageBitmap(Bitmap.createBitmap(bitmap, 0, side * 2, side, side));
-                imageList.get(9).setImageBitmap(Bitmap.createBitmap(bitmap, side, side * 2, side, side));
-                imageList.get(10).setImageBitmap(Bitmap.createBitmap(bitmap, side * 2, side * 2, side, side));
-                imageList.get(11).setImageBitmap(Bitmap.createBitmap(bitmap, side * 3, side * 2, side, side));
-                imageList.get(12).setImageBitmap(Bitmap.createBitmap(bitmap, 0, side * 3, side, side));
-                imageList.get(13).setImageBitmap(Bitmap.createBitmap(bitmap, side, side * 3, side, side));
-                imageList.get(14).setImageBitmap(Bitmap.createBitmap(bitmap, side * 2, side * 3, side, side));
-
-                drawableList.clear();
-                for (ImageView iv : imageList) {
-                    drawableList.add(iv.getDrawable());
-                    iv.setClickable(true);
-                }
+//                bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+//                        bitmap.getHeight(), imgMatrix, true);
+//                System.out.println("Матрица в user " + imgMatrix);
+//
+//                int side = bitmap.getHeight() / 4;
+//                imageList.get(0).setImageBitmap(Bitmap.createBitmap(bitmap, 0, 0, side, side));
+//                imageList.get(1).setImageBitmap(Bitmap.createBitmap(bitmap, side, 0, side, side));
+//                imageList.get(2).setImageBitmap(Bitmap.createBitmap(bitmap, side * 2, 0, side, side));
+//                imageList.get(3).setImageBitmap(Bitmap.createBitmap(bitmap, side * 3, 0, side, side));
+//                imageList.get(4).setImageBitmap(Bitmap.createBitmap(bitmap, 0, side, side, side));
+//                imageList.get(5).setImageBitmap(Bitmap.createBitmap(bitmap, side, side, side, side));
+//                imageList.get(6).setImageBitmap(Bitmap.createBitmap(bitmap, side * 2, side, side, side));
+//                imageList.get(7).setImageBitmap(Bitmap.createBitmap(bitmap, side * 3, side, side, side));
+//                imageList.get(8).setImageBitmap(Bitmap.createBitmap(bitmap, 0, side * 2, side, side));
+//                imageList.get(9).setImageBitmap(Bitmap.createBitmap(bitmap, side, side * 2, side, side));
+//                imageList.get(10).setImageBitmap(Bitmap.createBitmap(bitmap, side * 2, side * 2, side, side));
+//                imageList.get(11).setImageBitmap(Bitmap.createBitmap(bitmap, side * 3, side * 2, side, side));
+//                imageList.get(12).setImageBitmap(Bitmap.createBitmap(bitmap, 0, side * 3, side, side));
+//                imageList.get(13).setImageBitmap(Bitmap.createBitmap(bitmap, side, side * 3, side, side));
+//                imageList.get(14).setImageBitmap(Bitmap.createBitmap(bitmap, side * 2, side * 3, side, side));
+//
+//                drawableList.clear();
+//                for (ImageView iv : imageList) {
+//                    drawableList.add(iv.getDrawable());
+//                    iv.setClickable(true);
+//                }
             }
         }
     }

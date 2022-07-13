@@ -385,7 +385,7 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
                 editor.apply();
             }
 
-            playSound(sound);
+            if (mSettings.getBoolean("isSoundOn", false)) playSound(sound);
 
             FragmentManager manager = getSupportFragmentManager();
             DialogStoryWin dialogStoryWin = new DialogStoryWin();

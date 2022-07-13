@@ -8,17 +8,30 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES = "my_settings";
     SharedPreferences mSettings;
+    ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        if (!mSettings.contains("isSoundOn")) {
+            SharedPreferences.Editor editor = mSettings.edit();
+            editor.putBoolean("isSoundOn", true);
+            editor.apply();
+        }
+        imageButton = findViewById(R.id.soundButton);
+        if (mSettings.getBoolean("isSoundOn", false)) {
+            imageButton.setImageResource(R.drawable.ic_baseline_volume_up_40);
+        } else {
+            imageButton.setImageResource(R.drawable.ic_baseline_volume_off_40);
+        }
     }
 
     @Override
@@ -51,8 +64,20 @@ public class MainActivity extends AppCompatActivity {
     public void buttonAbout(View view) {
         Toast.makeText(getApplicationContext(), "Я красивый, правда )", Toast.LENGTH_SHORT).show();
     }
-    //TODO кнопка выключения звука
+
+    public void buttonSound(View view) {
+        SharedPreferences.Editor editor = mSettings.edit();
+        if (mSettings.getBoolean("isSoundOn", false)) {
+            editor.putBoolean("isSoundOn", false);
+            imageButton.setImageResource(R.drawable.ic_baseline_volume_off_40);
+        } else {
+            editor.putBoolean("isSoundOn", true);
+            imageButton.setImageResource(R.drawable.ic_baseline_volume_up_40);
+        }
+        editor.apply();
+    }
     //TODO звуки в стори моде
+    //TODO звук в классик и юзер моде
     //TODO раздел "об авторах"
     //TODO в юзер моде разрешение на доступ в галерею
     //TODO вынос повторяющихся методов в отдельный класс
