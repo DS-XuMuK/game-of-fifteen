@@ -1,16 +1,27 @@
 package ru.nikolaykolchin.gameoffifteen;
 
+import static ru.nikolaykolchin.gameoffifteen.CommonMethods.isPossibleToMove;
+import static ru.nikolaykolchin.gameoffifteen.CommonMethods.isSolvable;
+import static ru.nikolaykolchin.gameoffifteen.CommonMethods.isWin;
+
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +37,11 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
     static final String CHECK_STRING = "01020304050607080910111213141516";
     static final int FIELD_SIZE = 16;
     SharedPreferences mSettings;
+    private SoundPool mSoundPool;
+    private int sound;
+    private AssetManager mAssetManager;
+    private int mStreamID;
+    ImageButton buttonReset;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,9 +51,7 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
         initLists();
 
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        boolean hasVisited = mSettings.getBoolean("hasVisited", false);
-
-        if (!hasVisited) {
+        if (!mSettings.getBoolean("hasVisited", false)) {
             FragmentManager manager = getSupportFragmentManager();
             DialogClassicInfo dialogClassicInfo = new DialogClassicInfo();
             dialogClassicInfo.show(manager, "dialogClassicInfo");
@@ -50,13 +64,55 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
         if (mSettings.contains(APP_PREFERENCES_FIELD)) {
             loadLastState();
         }
-        if (isWin()) {
+        if (isWin(tagList)) {
             startNewGame();
         }
     }
 
+    private void createSoundPool() {
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        mSoundPool = new SoundPool.Builder()
+                .setAudioAttributes(attributes)
+                .build();
+    }
+
+    private int playSound(int sound) {
+        if (sound > 0) {
+            mStreamID = mSoundPool.play(sound, 1, 1, 1, 0, 1);
+        }
+        return mStreamID;
+    }
+
+    private int loadSound(String fileName) {
+        AssetFileDescriptor afd;
+        try {
+            afd = mAssetManager.openFd(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Не могу загрузить файл " + fileName,
+                    Toast.LENGTH_SHORT).show();
+            return -1;
+        }
+        return mSoundPool.load(afd, 1);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        createSoundPool();
+        mAssetManager = getAssets();
+        sound = loadSound("soundwin.ogg");
+    }
+
     @Override
     protected void onPause() {
+        mSoundPool.release();
+        mSoundPool = null;
+
         StringBuilder savedField = new StringBuilder();
         for (Object obj : tagList) {
             savedField.append(obj.toString());
@@ -70,22 +126,12 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
 
     private void initLists() {
         imageList = new ArrayList<>();
-        imageList.add(findViewById(R.id.pos1));
-        imageList.add(findViewById(R.id.pos2));
-        imageList.add(findViewById(R.id.pos3));
-        imageList.add(findViewById(R.id.pos4));
-        imageList.add(findViewById(R.id.pos5));
-        imageList.add(findViewById(R.id.pos6));
-        imageList.add(findViewById(R.id.pos7));
-        imageList.add(findViewById(R.id.pos8));
-        imageList.add(findViewById(R.id.pos9));
-        imageList.add(findViewById(R.id.pos10));
-        imageList.add(findViewById(R.id.pos11));
-        imageList.add(findViewById(R.id.pos12));
-        imageList.add(findViewById(R.id.pos13));
-        imageList.add(findViewById(R.id.pos14));
-        imageList.add(findViewById(R.id.pos15));
-        imageList.add(findViewById(R.id.pos16));
+        for (int i = 0; i < FIELD_SIZE; i++) {
+            String posName = "pos" + (i + 1);
+            int resID = getResources().getIdentifier(posName, "id", getPackageName());
+            imageList.add(findViewById(resID));
+        }
+
         emptyPos = 16;
         emptySquare = imageList.get(15);
 
@@ -96,6 +142,8 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
             drawableList.add(iv.getDrawable());
             iv.setOnClickListener(this);
         }
+        buttonReset = findViewById(R.id.imageButton);
+        buttonReset.setOnClickListener(this);
     }
 
     private void loadLastState() {
@@ -114,43 +162,6 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
                 emptySquare = imageList.get(i);
                 emptyPos = i + 1;
             }
-        }
-    }
-
-    private boolean isPossibleToMove(int tapPosition) {
-        if (tapPosition == emptyPos) {
-            return false;
-        }
-        switch (tapPosition) {
-            case 6:
-            case 7:
-            case 10:
-            case 11:
-                return Math.abs(tapPosition - emptyPos) == 4
-                        || Math.abs(tapPosition - emptyPos) == 1;
-            case 2:
-            case 3:
-                return tapPosition + 4 == emptyPos || Math.abs(tapPosition - emptyPos) == 1;
-            case 5:
-            case 9:
-                return tapPosition + 1 == emptyPos || Math.abs(tapPosition - emptyPos) == 4;
-            case 8:
-            case 12:
-                return tapPosition - 1 == emptyPos || Math.abs(tapPosition - emptyPos) == 4;
-            case 14:
-            case 15:
-                return tapPosition - 4 == emptyPos || Math.abs(tapPosition - emptyPos) == 1;
-            case 1:
-                return emptyPos == 2 || emptyPos == 5;
-            case 4:
-                return emptyPos == 3 || emptyPos == 8;
-            case 13:
-                return emptyPos == 9 || emptyPos == 14;
-            case 16:
-                return emptyPos == 12 || emptyPos == 15;
-            default:
-                throw new IllegalStateException("Unexpected value in isPossibleToMove: "
-                        + tapPosition);
         }
     }
 
@@ -189,38 +200,6 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private boolean isWin() {
-        StringBuilder currentField = new StringBuilder();
-        for (Object obj : tagList) {
-            currentField.append(obj.toString());
-        }
-        return currentField.toString().equals(CHECK_STRING);
-    }
-
-    private boolean isSolvable(List<Integer> randomField) {
-        int n = 0;
-        int e;
-        for (int i = 0; i < FIELD_SIZE; i++) {
-            if (randomField.get(i) == 16) {
-                continue;
-            }
-            for (int j = i + 1; j < FIELD_SIZE; j++) {
-                n = (randomField.get(i) > randomField.get(j)) ? n + 1 : n;
-            }
-        }
-        int indexE = randomField.indexOf(16);
-        if (indexE <= 3) {
-            e = 1;
-        } else if (indexE <= 7) {
-            e = 2;
-        } else if (indexE <= 11) {
-            e = 3;
-        } else {
-            e = 4;
-        }
-        return (n + e) % 2 == 0;
-    }
-
     protected void finishActivity() {
         finish();
     }
@@ -239,17 +218,17 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
         shuffleSquares(randomField);
     }
 
-    public void clickReset(View view) {
-        FragmentManager manager = getSupportFragmentManager();
-        DialogClassicReset dialogClassicReset = new DialogClassicReset();
-        dialogClassicReset.show(manager, "dialogClassicReset");
-        dialogClassicReset.setCancelable(false);
-    }
-
     @Override
     public void onClick(View view) {
-        int tapPosition = 0;
+        if (view.getId() == R.id.imageButton) {
+            FragmentManager manager = getSupportFragmentManager();
+            DialogClassicReset dialogClassicReset = new DialogClassicReset();
+            dialogClassicReset.show(manager, "dialogClassicReset");
+            dialogClassicReset.setCancelable(false);
+            return;
+        }
 
+        int tapPosition = 0;
         for (int i = 0; i < FIELD_SIZE; i++) {
             if (view.getId() == imageList.get(i).getId()) {
                 tapPosition = i + 1;
@@ -257,12 +236,14 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
 
-        if (!isPossibleToMove(tapPosition)) {
+        if (!isPossibleToMove(tapPosition, emptyPos)) {
             return;
         }
         swapSquares(tapPosition);
 
-        if (tapPosition == 16 && isWin()) {
+        if (tapPosition == 16 && isWin(tagList)) {
+            if (mSettings.getBoolean("isSoundOn", false)) playSound(sound);
+
             FragmentManager manager = getSupportFragmentManager();
             DialogClassicWin dialogClassicWin = new DialogClassicWin();
             dialogClassicWin.show(manager, "dialogClassicWin");

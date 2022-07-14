@@ -76,9 +76,7 @@ public class MainActivity extends AppCompatActivity {
         }
         editor.apply();
     }
-    //TODO звуки в стори моде
-    //TODO звук в классик и юзер моде
+
     //TODO раздел "об авторах"
     //TODO в юзер моде разрешение на доступ в галерею
-    //TODO вынос повторяющихся методов в отдельный класс
 }

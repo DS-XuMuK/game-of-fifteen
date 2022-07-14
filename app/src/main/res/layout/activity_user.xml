@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/pos1"
-        android:onClick="clickOnField"
         android:src="@drawable/mem6"
         android:tag="01"
         app:layout_constraintBottom_toTopOf="@id/pos5"
@@ -20,7 +18,6 @@
 
     <ImageView
         android:id="@+id/pos2"
-        android:onClick="clickOnField"
         android:src="@drawable/mem10"
         android:tag="02"
         app:layout_constraintBottom_toTopOf="@id/pos6"
@@ -32,7 +29,6 @@
 
     <ImageView
         android:id="@+id/pos3"
-        android:onClick="clickOnField"
         android:src="@drawable/mem5"
         android:tag="03"
         app:layout_constraintBottom_toTopOf="@id/pos7"
@@ -44,7 +40,6 @@
 
     <ImageView
         android:id="@+id/pos4"
-        android:onClick="clickOnField"
         android:src="@drawable/mem8"
         android:tag="04"
         app:layout_constraintBottom_toTopOf="@id/pos8"
@@ -56,7 +51,6 @@
 
     <ImageView
         android:id="@+id/pos5"
-        android:onClick="clickOnField"
         android:src="@drawable/mem10"
         android:tag="05"
         app:layout_constraintBottom_toTopOf="@id/pos9"
@@ -68,7 +62,6 @@
 
     <ImageView
         android:id="@+id/pos6"
-        android:onClick="clickOnField"
         android:src="@drawable/mem10"
         android:tag="06"
         app:layout_constraintBottom_toTopOf="@id/pos10"
@@ -79,7 +72,6 @@
 
     <ImageView
         android:id="@+id/pos7"
-        android:onClick="clickOnField"
         android:src="@drawable/mem10"
         android:tag="07"
         app:layout_constraintBottom_toTopOf="@id/pos11"
@@ -90,7 +82,6 @@
 
     <ImageView
         android:id="@+id/pos8"
-        android:onClick="clickOnField"
         android:src="@drawable/mem10"
         android:tag="08"
         app:layout_constraintBottom_toTopOf="@id/pos12"
@@ -101,7 +92,6 @@
 
     <ImageView
         android:id="@+id/pos9"
-        android:onClick="clickOnField"
         android:src="@drawable/mem3"
         android:tag="09"
         app:layout_constraintBottom_toTopOf="@id/pos13"
@@ -113,7 +103,6 @@
 
     <ImageView
         android:id="@+id/pos10"
-        android:onClick="clickOnField"
         android:src="@drawable/mem10"
         android:tag="10"
         app:layout_constraintBottom_toTopOf="@id/pos14"
@@ -124,7 +113,6 @@
 
     <ImageView
         android:id="@+id/pos11"
-        android:onClick="clickOnField"
         android:src="@drawable/mem1"
         android:tag="11"
         app:layout_constraintBottom_toTopOf="@id/pos15"
@@ -135,7 +123,6 @@
 
     <ImageView
         android:id="@+id/pos12"
-        android:onClick="clickOnField"
         android:src="@drawable/mem7"
         android:tag="12"
         app:layout_constraintBottom_toTopOf="@id/pos16"
@@ -146,7 +133,6 @@
 
     <ImageView
         android:id="@+id/pos13"
-        android:onClick="clickOnField"
         android:src="@drawable/mem2"
         android:tag="13"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -158,7 +144,6 @@
 
     <ImageView
         android:id="@+id/pos14"
-        android:onClick="clickOnField"
         android:src="@drawable/mem10"
         android:tag="14"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -169,7 +154,6 @@
 
     <ImageView
         android:id="@+id/pos15"
-        android:onClick="clickOnField"
         android:src="@drawable/mem9"
         android:tag="15"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -180,7 +164,6 @@
 
     <ImageView
         android:id="@+id/pos16"
-        android:onClick="clickOnField"
         android:src="@drawable/mem4"
         android:tag="16"
         app:layout_constraintBottom_toBottomOf="parent"
