@@ -27,21 +27,19 @@ import java.util.Collections;
 import java.util.List;
 
 public class ClassicActivity extends AppCompatActivity implements View.OnClickListener {
-    int emptyPos;
-    ImageView emptySquare;
-    ArrayList<ImageView> imageList;
-    ArrayList<Object> tagList;
-    ArrayList<Drawable> drawableList;
-    static final String APP_PREFERENCES = "my_settings";
-    static final String APP_PREFERENCES_FIELD = "Field";
-    static final String CHECK_STRING = "01020304050607080910111213141516";
-    static final int FIELD_SIZE = 16;
-    SharedPreferences mSettings;
+    private int emptyPos;
+    private ImageView emptySquare;
+    private ArrayList<ImageView> imageList;
+    private ArrayList<Object> tagList;
+    private ArrayList<Drawable> drawableList;
+    private static final String APP_PREFERENCES = "my_settings";
+    private static final String APP_PREFERENCES_FIELD = "Field";
+    private static final int FIELD_SIZE = 16;
+    private SharedPreferences mSettings;
     private SoundPool mSoundPool;
     private int sound;
     private AssetManager mAssetManager;
     private int mStreamID;
-    ImageButton buttonReset;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -142,7 +140,7 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
             drawableList.add(iv.getDrawable());
             iv.setOnClickListener(this);
         }
-        buttonReset = findViewById(R.id.imageButton);
+        ImageButton buttonReset = findViewById(R.id.imageButton);
         buttonReset.setOnClickListener(this);
     }
 
@@ -182,9 +180,10 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void shuffleSquares(List<Integer> randomField) {
+        String checkString = "01020304050607080910111213141516";
         tagList.clear();
         for (int i = 0; i < FIELD_SIZE; i++) {
-            tagList.add(CHECK_STRING.substring(i * 2, i * 2 + 2));
+            tagList.add(checkString.substring(i * 2, i * 2 + 2));
         }
         for (int i = 0; i < FIELD_SIZE; i++) {
             imageList.get(i).setImageDrawable(drawableList.get(randomField.get(i) - 1));

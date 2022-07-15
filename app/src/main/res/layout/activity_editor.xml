@@ -17,12 +17,12 @@
         tools:srcCompat="@drawable/story10" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/buttonSpin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="spin"
         app:srcCompat="@drawable/ic_baseline_rotate_right_40"
-        app:layout_constraintEnd_toStartOf="@id/imageButton3"
+        app:layout_constraintEnd_toStartOf="@id/buttonMirrorHor"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,38 +30,38 @@
         android:layout_marginBottom="10dp"/>
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/buttonMirrorHor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="mirrorHor"
         app:srcCompat="@drawable/ic_baseline_border_horizontal_40"
-        app:layout_constraintEnd_toStartOf="@id/imageButton4"
+        app:layout_constraintEnd_toStartOf="@id/buttonMirrorVer"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@id/imageButton2"
+        app:layout_constraintStart_toEndOf="@id/buttonSpin"
         app:layout_constraintTop_toBottomOf="@id/tmpImage"
         android:layout_marginBottom="10dp"/>
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/buttonMirrorVer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="mirrorVer"
         app:srcCompat="@drawable/ic_baseline_border_vertical_40"
-        app:layout_constraintEnd_toStartOf="@id/imageButton5"
+        app:layout_constraintEnd_toStartOf="@id/buttonOK"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@id/imageButton3"
+        app:layout_constraintStart_toEndOf="@id/buttonMirrorHor"
         app:layout_constraintTop_toBottomOf="@id/tmpImage"
         android:layout_marginBottom="10dp"/>
 
     <ImageButton
-        android:id="@+id/imageButton5"
+        android:id="@+id/buttonOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="dismiss"
         app:srcCompat="@drawable/ic_baseline_done_outline_40"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@id/imageButton4"
+        app:layout_constraintStart_toEndOf="@id/buttonMirrorVer"
         app:layout_constraintTop_toBottomOf="@id/tmpImage"
         android:layout_marginBottom="10dp"/>
 

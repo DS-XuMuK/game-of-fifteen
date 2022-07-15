@@ -28,16 +28,14 @@ import java.util.List;
 
 public class StoryActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int FIELD_SIZE = 16;
-    public int emptyPos;
-    public ImageView emptySquare;
-    public ArrayList<ImageView> imageList;
-    public ArrayList<Object> tagList;
-    public ArrayList<Drawable> drawableList;
-    public static final String APP_PREFERENCES = "my_settings";
-    public static final String CHECK_STRING = "01020304050607080910111213141516";
+    private int emptyPos;
+    private ImageView emptySquare;
+    private ArrayList<ImageView> imageList;
+    private ArrayList<Object> tagList;
+    private ArrayList<Drawable> drawableList;
     private static final int LEVELS = 16;
-    SharedPreferences mSettings;
-    public static int currentLevel;
+    private SharedPreferences mSettings;
+    static int currentLevel;
     private SoundPool mSoundPool;
     private AssetManager mAssetManager;
     private int sound;
@@ -50,7 +48,7 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
 
         initLists();
 
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        mSettings = getSharedPreferences("my_settings", Context.MODE_PRIVATE);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             currentLevel = extras.getInt("currentLevel");
@@ -166,9 +164,10 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void shuffleSquares(List<Integer> randomField) {
+        String checkString = "01020304050607080910111213141516";
         tagList.clear();
         for (int i = 0; i < FIELD_SIZE; i++) {
-            tagList.add(CHECK_STRING.substring(i * 2, i * 2 + 2));
+            tagList.add(checkString.substring(i * 2, i * 2 + 2));
         }
         for (int i = 0; i < FIELD_SIZE; i++) {
             imageList.get(i).setImageDrawable(drawableList.get(randomField.get(i) - 1));

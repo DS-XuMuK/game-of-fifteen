@@ -7,50 +7,46 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonClassic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Классика"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="buttonClassic" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonStory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Сюжет"
-        app:layout_constraintBottom_toTopOf="@id/button"
+        app:layout_constraintBottom_toTopOf="@id/buttonClassic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        android:onClick="buttonStory" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="buttonUser"
         android:text="Пользовательский"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button" />
+        app:layout_constraintTop_toBottomOf="@id/buttonClassic" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/buttonAbout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Об авторах"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button3"
-        app:layout_constraintVertical_bias="0.0"
-        android:onClick="buttonAbout"/>
+        app:layout_constraintTop_toBottomOf="@id/buttonUser"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/soundButton"
@@ -62,7 +58,6 @@
         app:layout_constraintWidth_percent="0.15"
         app:srcCompat="@drawable/ic_baseline_volume_up_40"
         android:layout_margin="10dp"
-        android:onClick="buttonSound"
         style="@android:style/Widget.Holo.Light.ImageButton"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

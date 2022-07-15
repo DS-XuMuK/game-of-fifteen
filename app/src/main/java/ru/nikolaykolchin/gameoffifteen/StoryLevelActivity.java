@@ -16,10 +16,9 @@ import androidx.fragment.app.FragmentManager;
 import java.util.ArrayList;
 
 public class StoryLevelActivity extends AppCompatActivity implements View.OnClickListener {
-    public static final String APP_PREFERENCES = "my_settings";
     static SharedPreferences mSettings;
-    ArrayList<ImageView> imageList;
-    ArrayList<Drawable> drawableList;
+    private ArrayList<ImageView> imageList;
+    private ArrayList<Drawable> drawableList;
     private static final int LEVELS = 16;
     private int openLevels;
     private int bonusCounter;
@@ -28,12 +27,9 @@ public class StoryLevelActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_level);
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        boolean hasVisited = mSettings.getBoolean("hasVisitedStory", false);
-        openLevels = mSettings.getInt("openLevels", 0);
-        bonusCounter = mSettings.getInt("bonusCounter", 0);
+        mSettings = getSharedPreferences("my_settings", Context.MODE_PRIVATE);
 
-        if (!hasVisited) {
+        if (!mSettings.getBoolean("hasVisitedStory", false)) {
             FragmentManager manager = getSupportFragmentManager();
             DialogStoryInfo dialogStoryInfo = new DialogStoryInfo();
             dialogStoryInfo.show(manager, "dialogStoryInfo");
@@ -44,15 +40,13 @@ public class StoryLevelActivity extends AppCompatActivity implements View.OnClic
             editor.apply();
         }
 
-        if (!mSettings.contains("openLevels") || !mSettings.contains("bonusCounter")
-                || !mSettings.contains("isGameOver") || !mSettings.contains("isMessageShown")) {
+        if (!mSettings.contains("openLevels")) {
             SharedPreferences.Editor editor = mSettings.edit();
-            if (!mSettings.contains("openLevels")) editor.putInt("openLevels", 1);
-            if (!mSettings.contains("bonusCounter")) editor.putInt("bonusCounter", 0);
-            if (!mSettings.contains("isGameOver")) editor.putBoolean("isGameOver", false);
-            if (!mSettings.contains("isMessageShown")) editor.putBoolean("isMessageShown", false);
+            editor.putInt("openLevels", 1);
             editor.apply();
         }
+        openLevels = mSettings.getInt("openLevels", 0);
+        bonusCounter = mSettings.getInt("bonusCounter", 0);
 
         initList();
     }
@@ -100,22 +94,11 @@ public class StoryLevelActivity extends AppCompatActivity implements View.OnClic
 
     private void initList() {
         imageList = new ArrayList<>();
-        imageList.add(findViewById(R.id.lvl1));
-        imageList.add(findViewById(R.id.lvl2));
-        imageList.add(findViewById(R.id.lvl3));
-        imageList.add(findViewById(R.id.lvl4));
-        imageList.add(findViewById(R.id.lvl5));
-        imageList.add(findViewById(R.id.lvl6));
-        imageList.add(findViewById(R.id.lvl7));
-        imageList.add(findViewById(R.id.lvl8));
-        imageList.add(findViewById(R.id.lvl9));
-        imageList.add(findViewById(R.id.lvl10));
-        imageList.add(findViewById(R.id.lvl11));
-        imageList.add(findViewById(R.id.lvl12));
-        imageList.add(findViewById(R.id.lvl13));
-        imageList.add(findViewById(R.id.lvl14));
-        imageList.add(findViewById(R.id.lvl15));
-        imageList.add(findViewById(R.id.lvl16));
+        for (int i = 0; i < LEVELS; i++) {
+            String posName = "lvl" + (i + 1);
+            int resID = getResources().getIdentifier(posName, "id", getPackageName());
+            imageList.add(findViewById(resID));
+        }
 
         drawableList = new ArrayList<>();
         for (ImageView iv : imageList) {

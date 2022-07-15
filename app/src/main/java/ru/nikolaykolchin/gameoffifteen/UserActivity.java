@@ -2,9 +2,11 @@ package ru.nikolaykolchin.gameoffifteen;
 
 import static ru.nikolaykolchin.gameoffifteen.CommonMethods.*;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 
 import java.io.FileOutputStream;
@@ -32,24 +35,21 @@ import java.util.List;
 
 public class UserActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int FIELD_SIZE = 16;
-    public int emptyPos;
-    public ImageView emptySquare;
-    public ArrayList<ImageView> imageList;
-    public ArrayList<Object> tagList;
-    public ArrayList<Drawable> drawableList;
-    public static final String APP_PREFERENCES = "my_settings";
-    public static final String CHECK_STRING = "01020304050607080910111213141516";
-    SharedPreferences mSettings;
-    static final int GALLERY_REQUEST = 1;
-    public static Uri selectedImage;
+    private int emptyPos;
+    private ImageView emptySquare;
+    private ArrayList<ImageView> imageList;
+    private ArrayList<Object> tagList;
+    private ArrayList<Drawable> drawableList;
+    private SharedPreferences mSettings;
+    private static final int GALLERY_REQUEST = 1;
     public static Matrix imgMatrix;
-    Bitmap bitmap;
+    private Bitmap bitmap;
     public static boolean isEdit;
     private SoundPool mSoundPool;
     private int sound;
     private AssetManager mAssetManager;
     private int mStreamID;
-    Button button;
+    private static final int REQUEST_STORAGE = 100;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         imgMatrix = new Matrix();
         isEdit = false;
 
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        mSettings = getSharedPreferences("my_settings", Context.MODE_PRIVATE);
         if (!mSettings.getBoolean("hasVisitedUser", false)) {
             FragmentManager manager = getSupportFragmentManager();
             DialogUserInfo dialogUserInfo = new DialogUserInfo();
@@ -148,7 +148,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
         if (requestCode == GALLERY_REQUEST) {
             if (resultCode == RESULT_OK) {
-                selectedImage = imageReturnedIntent.getData();
+                Uri selectedImage = imageReturnedIntent.getData();
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
                 } catch (IOException e) {
@@ -202,7 +202,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             iv.setOnClickListener(this);
             iv.setClickable(false);
         }
-        button = findViewById(R.id.button);
+        Button button = findViewById(R.id.button);
         button.setOnClickListener(this);
     }
 
@@ -223,9 +223,10 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void shuffleSquares(List<Integer> randomField) {
+        String checkString = "01020304050607080910111213141516";
         tagList.clear();
         for (int i = 0; i < FIELD_SIZE; i++) {
-            tagList.add(CHECK_STRING.substring(i * 2, i * 2 + 2));
+            tagList.add(checkString.substring(i * 2, i * 2 + 2));
         }
         for (int i = 0; i < FIELD_SIZE; i++) {
             imageList.get(i).setImageDrawable(drawableList.get(randomField.get(i) - 1));
@@ -262,9 +263,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.button) {
-            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-            photoPickerIntent.setType("image/*");
-            startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
+            requestPermission();
             return;
         }
 
@@ -287,6 +286,35 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             DialogUserWin dialogUserWin = new DialogUserWin();
             dialogUserWin.show(manager, "dialogUserWin");
             dialogUserWin.setCancelable(false);
+        }
+    }
+
+    private void requestPermission() {
+        String storagePermission = Manifest.permission.READ_EXTERNAL_STORAGE;
+        int hasPermission = ActivityCompat.checkSelfPermission(this, storagePermission);
+        String[] permissions = new String[]{storagePermission};
+        if (hasPermission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, permissions, REQUEST_STORAGE);
+        } else {
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+            photoPickerIntent.setType("image/*");
+            startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        if (requestCode == REQUEST_STORAGE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getApplicationContext(),
+                        "Разрешение получено!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "Вы отклонили запрос", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
