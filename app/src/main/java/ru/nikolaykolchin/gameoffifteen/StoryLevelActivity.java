@@ -75,7 +75,7 @@ public class StoryLevelActivity extends AppCompatActivity implements View.OnClic
 
         if (mSettings.getBoolean("isGameOver", false) && !mSettings.getBoolean("isMessageShown",
                 false)) {
-            Toast.makeText(getApplicationContext(), "Сюжет пройден! Открыт раздел \"Об авторах\"",
+            Toast.makeText(getApplicationContext(), "Сюжет пройден! Открыт раздел \"Об авторе\"",
                     Toast.LENGTH_SHORT).show();
             SharedPreferences.Editor editor = mSettings.edit();
             editor.putBoolean("isMessageShown", true);

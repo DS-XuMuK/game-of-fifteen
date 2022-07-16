@@ -41,7 +41,7 @@
         android:id="@+id/buttonAbout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Об авторах"
+        android:text="Об авторе"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,14 +50,12 @@
 
     <ImageButton
         android:id="@+id/soundButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.15"
         app:srcCompat="@drawable/ic_baseline_volume_up_40"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         style="@android:style/Widget.Holo.Light.ImageButton"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
