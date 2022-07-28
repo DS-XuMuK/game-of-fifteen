@@ -16,6 +16,7 @@ import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -276,6 +277,10 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
         if (!isPossibleToMove(tapPosition, emptyPos)) {
             return;
+        }
+        if (mSettings.getBoolean("isVibrationOn", false)) {
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(10);
         }
         swapSquares(tapPosition);
 

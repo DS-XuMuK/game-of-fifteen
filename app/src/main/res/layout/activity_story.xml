@@ -156,4 +156,14 @@
         app:layout_constraintTop_toBottomOf="@id/pos12"
         style="@style/field_style"/>
 
+    <ImageButton
+        android:id="@+id/helpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_lightbulb_40"
+        android:layout_margin="5dp"
+        style="@android:style/Widget.Holo.Light.ImageButton"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

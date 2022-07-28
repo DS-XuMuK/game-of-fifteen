@@ -58,4 +58,15 @@
         android:layout_margin="5dp"
         style="@android:style/Widget.Holo.Light.ImageButton"/>
 
+    <ImageButton
+        android:id="@+id/vibrationButton"
+        style="@android:style/Widget.Holo.Light.ImageButton"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/soundButton"
+        app:srcCompat="@drawable/ic_baseline_vibration_40" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

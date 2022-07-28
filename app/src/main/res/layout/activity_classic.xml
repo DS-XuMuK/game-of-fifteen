@@ -181,6 +181,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="5dp"
-        app:srcCompat="@drawable/ic_outline_refresh_40" />
+        app:srcCompat="@drawable/ic_baseline_refresh_40" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

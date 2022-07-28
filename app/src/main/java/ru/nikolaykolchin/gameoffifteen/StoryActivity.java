@@ -13,7 +13,9 @@ import android.graphics.drawable.Drawable;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -145,6 +147,8 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
             tagList.add(iv.getTag());
             iv.setOnClickListener(this);
         }
+        ImageButton imageButton = findViewById(R.id.helpButton);
+        imageButton.setOnClickListener(this);
     }
 
     public void swapSquares(int tapPosition) {
@@ -212,8 +216,12 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        int tapPosition = 0;
+        if (view.getId() == R.id.helpButton) {
+            startActivity(new Intent(this, HelpActivity.class));
+            return;
+        }
 
+        int tapPosition = 0;
         for (int i = 0; i < FIELD_SIZE; i++) {
             if (view.getId() == imageList.get(i).getId()) {
                 tapPosition = i + 1;
@@ -223,6 +231,10 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
 
         if (!isPossibleToMove(tapPosition, emptyPos)) {
             return;
+        }
+        if (mSettings.getBoolean("isVibrationOn", false)) {
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(10);
         }
         swapSquares(tapPosition);
 

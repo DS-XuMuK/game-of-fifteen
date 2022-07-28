@@ -3,6 +3,7 @@
     package="ru.nikolaykolchin.gameoffifteen">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -37,6 +38,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dialog"
             android:label="Ориентация"
+            />
+        <activity android:name=".HelpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:label="Результат"
             />
     </application>
 
